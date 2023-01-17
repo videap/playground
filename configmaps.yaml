@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2016-02-18T18:52:05Z
+  name: game-config
+  resourceVersion: "516"
+  uid: b4952dc3-d670-11e5-8cd0-68f728db1985
+data:
+  game.properties: |
+    enemies=aliens
+    lives=3
+    enemies.cheat=true
+    enemies.cheat.level=noGoodRotten
+    secret.code.passphrase=UUDDLRLRBABAS
+    secret.code.allowed=true
+    secret.code.lives=30
+  ui.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+    how.nice.to.look=fairlyNice
+
+---
+#CONFIGMAPS
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu
+spec:
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        command:
+          - sleep
+        args:
+          - infinity
+        volumeMounts:
+        - name: volume-from-configmap
+          mountPath: /etc/config
+      volumes:
+        - name: volume-from-configmap
+          configMap:
+            name: game-config
+            items:
+              - key: game.properties
+                path: game-properties-file
+              - key: ui.properties
+                path: ui-properties-file

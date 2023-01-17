@@ -1,0 +1,21 @@
+version: "3.8"
+
+networks:
+  local:
+    driver: bridge
+    name: nursa-local-network
+
+
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      - local
+
+  alpine:
+    image: alpine/curl
+    entrypoint: sleep infinity
+    networks:
+      - local

@@ -1,0 +1,102 @@
+#### HOST PATH
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: ubuntu
+# spec:
+#   selector:
+#     matchLabels:
+#       app: ubuntu
+#   template:
+#     metadata:
+#       labels:
+#         app: ubuntu
+#     spec:
+#       containers:
+#       - name: ubuntu
+#         image: ubuntu
+#         resources:
+#           limits:
+#             memory: "128Mi"
+#             cpu: "500m"
+#         command:
+#           - sleep
+#         args:
+#           - infinity
+#         volumeMounts:
+#         - mountPath: /kind-vol
+#           name: kind-volume
+#       volumes:
+#       - name: kind-volume
+#         hostPath:
+#           # directory location on host
+#           path: /nursa-monorepo
+#           # this field is optional
+#           type: Directory
+
+---
+#SECRETS
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: ubuntu
+# spec:
+#   selector:
+#     matchLabels:
+#       app: ubuntu
+#   template:
+#     metadata:
+#       labels:
+#         app: ubuntu
+#     spec:
+#       containers:
+#       - name: ubuntu
+#         image: ubuntu
+#         resources:
+#           limits:
+#             memory: "128Mi"
+#             cpu: "500m"
+#         command:
+#           - sleep
+#         args:
+#           - infinity
+#         volumeMounts:
+#         - name: volume-from-secret
+#           mountPath: "/etc/secrets/"
+#           readOnly: true
+#       volumes:
+#         - name: volume-from-secret
+#           secret:
+#             secretName: mysecret
+#             optional: false # default setting; "mysecret" must exist
+
+---
+
+#SECRETS AS ENVS
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu
+spec:
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        command:
+          - sleep
+        args:
+          - infinity
+        envFrom:
+        - secretRef:
+            name: mysecret

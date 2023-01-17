@@ -1,0 +1,143 @@
+version: '2'
+
+networks:
+  nursa-local-network:
+    driver: bridge
+    name: nursa-local-network
+
+x-app: &app
+  networks:
+    - nursa-local-network
+  env_file: ./docker-compose.env
+
+x-resources: &resources
+  deploy:
+    resources:
+      limits:
+        cpus: "0.2"
+        memory: 200M
+
+
+services:
+  nursa-api1:
+    <<: [*app, *resources]
+    image: nursa/api
+    container_name: nursa-api1
+    command: npm run start:server
+    ports:
+        - "5001:5000" #App port
+
+  nursa-api2:
+    <<: [*app, *resources]
+    image: nursa/api
+    container_name: nursa-api2
+    command: npm run start:server
+    ports:
+        - "5002:5000" #App port
+
+  nursa-api3:
+    <<: [*app, *resources]
+    image: nursa/api
+    container_name: nursa-api3
+    command: npm run start:server
+    ports:
+        - "5003:5000" #App port
+
+  nursa-api4:
+    <<: [*app, *resources]
+    image: nursa/api
+    container_name: nursa-api4
+    command: npm run start:server
+    ports:
+        - "5004:5000" #App port
+
+  # nursa-api5:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api5
+  #   command: npm run start:server
+  #   ports:
+  #       - "5005:5000" #App port
+
+  # nursa-api6:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api6
+  #   command: npm run start:server
+  #   ports:
+  #       - "5006:5000" #App port
+
+  # nursa-api7:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api7
+  #   command: npm run start:server
+  #   ports:
+  #       - "5007:5000" #App port
+
+  # nursa-api8:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api8
+  #   command: npm run start:server
+  #   ports:
+  #       - "5008:5000" #App port
+
+  # nursa-api9:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api9
+  #   command: npm run start:server
+  #   ports:
+  #       - "5009:5000" #App port
+
+  # nursa-api10:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api10
+  #   command: npm run start:server
+  #   ports:
+  #       - "5010:5000" #App port
+
+  # nursa-api11:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api11
+  #   command: npm run start:server
+  #   ports:
+  #       - "5011:5000" #App port
+
+  # nursa-api12:
+  #   <<: [*app, *resources]
+  #   image: nursa/api
+  #   container_name: nursa-api12
+  #   command: npm run start:server
+  #   ports:
+  #       - "5012:5000" #App port
+
+  nursa-api:
+    networks:
+        - nursa-local-network
+    image: haproxy:nursa-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: haproxy-nursa-api
+    hostname: haproxy
+    ports:
+      - 5000:5000
+      - 20001:20001 #ha-proxy admin
+    links:
+      - nursa-api1:nursa-api1
+      - nursa-api2:nursa-api2
+      - nursa-api3:nursa-api3
+      - nursa-api4:nursa-api4
+    <<: *resources
+      # - nursa-api5:nursa-api5
+      # - nursa-api6:nursa-api6
+      # - nursa-api7:nursa-api7
+      # - nursa-api8:nursa-api8
+      # - nursa-api9:nursa-api9
+      # - nursa-api10:nursa-api10
+      # - nursa-api11:nursa-api11
+      # - nursa-api12:nursa-api12

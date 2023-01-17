@@ -1,0 +1,129 @@
+version: '2'
+
+networks:
+  nursa-local-network:
+    driver: bridge
+    name: nursa-local-network
+
+x-app: &app
+  networks:
+    - nursa-local-network
+  volumes:
+    - ./${DEVELOPER_SA_KEY_FILE}:/${DEVELOPER_SA_KEY_FILE_DOCKER}
+  env_file: ./docker-compose.env
+  deploy:
+    resources:
+      limits:
+        cpus: "0.2"
+        memory: 200M
+
+
+services:
+  backend1:
+    <<: *app
+    image: backend
+    container_name: backend1
+    ports:
+        - "4001:3333" #App port
+
+  backend2:
+    <<: *app
+    image: backend
+    container_name: backend2
+    ports:
+        - "4002:3333" #App port
+
+  backend3:
+    <<: *app
+    image: backend
+    container_name: backend3
+    ports:
+        - "4003:3333" #App port
+
+  backend4:
+    <<: *app
+    image: backend
+    container_name: backend4
+    ports:
+        - "4004:3333" #App port
+
+  # backend5:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend5
+  #   ports:
+  #       - "4005:3333" #App port
+
+  # backend6:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend6
+  #   ports:
+  #       - "4006:3333" #App port
+
+  # backend7:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend7
+  #   ports:
+  #       - "4007:3333" #App port
+
+  # backend8:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend8
+  #   ports:
+  #       - "4008:3333" #App port
+
+  # backend9:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend9
+  #   ports:
+  #       - "4009:3333" #App port
+
+  # backend10:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend10
+  #   ports:
+  #       - "5010:3333" #App port
+
+  # backend11:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend11
+  #   ports:
+  #       - "5011:3333" #App port
+
+  # backend12:
+  #   <<: *app
+  #   image: backend
+  #   container_name: backend12
+  #   ports:
+  #       - "5012:3333" #App port
+
+  backend:
+    networks:
+        - nursa-local-network
+    image: haproxy:backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: haproxy-backend
+    ports:
+      - 3333:3333
+      - 20002:20002 #ha-proxy admin
+    links:
+      - backend1:backend1
+      - backend2:backend2
+      - backend3:backend3
+      - backend4:backend4
+      # - backend5:backend5
+      # - backend6:backend6
+      # - backend7:backend7
+      # - backend8:backend8
+      # - backend9:backend9
+      # - backend10:backend10
+      # - backend11:backend11
+      # - backend12:backend12
