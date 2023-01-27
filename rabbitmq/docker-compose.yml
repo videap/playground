@@ -21,6 +21,7 @@ services:
     hostname: rabbitmq1
     ports:
       - "8080:15672"
+      - "9080:5672"
     volumes:
      - $PWD/storage/rabbitmq1:/var/lib/rabbitmq
     environment:
@@ -37,7 +38,8 @@ services:
     container_name: rabbitmq2
     hostname: rabbitmq2
     ports:
-      - "8081:15672"
+      - "8081:5672"
+      - "9081:15672"
     volumes:
      - $PWD/storage/rabbitmq2:/var/lib/rabbitmq
     environment:
@@ -56,7 +58,8 @@ services:
     container_name: rabbitmq3
     hostname: rabbitmq3
     ports:
-      - "8082:15672"
+      - "8082:5672"
+      - "9082:15672"
     volumes:
       - $PWD/storage/rabbitmq3:/var/lib/rabbitmq
     environment:
@@ -76,7 +79,8 @@ services:
     container_name: rabbitmq4
     hostname: rabbitmq4
     ports:
-      - "8083:15672"
+      - "8083:5672"
+      - "9083:15672"
     volumes:
       - $PWD/storage/rabbitmq4:/var/lib/rabbitmq
     environment:
@@ -97,8 +101,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: haproxy
-    hostname: haproxy
+    container_name: rabbtimq-haproxy
+    hostname: rabbtimq-haproxy
     ports:
       - 5672:5672
       - 20000:20000 #ha-proxy admin

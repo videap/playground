@@ -9,7 +9,7 @@ x-app: &app
   networks:
     - nursa-local-network
   volumes:
-    - ./${DEVELOPER_SA_KEY_FILE}:/${DEVELOPER_SA_KEY_FILE_DOCKER}
+    - ${DEVELOPER_SA_KEY_FILE}:/app/developer-sa-key.json
   env_file: ./docker-compose.env
   deploy:
     resources:

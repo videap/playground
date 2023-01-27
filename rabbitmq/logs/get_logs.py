@@ -9,7 +9,7 @@ class RabbitMsg(object):
 
 
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq.stage.nursa.internal'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     channel = connection.channel()
 
     queue_name = "firehose"

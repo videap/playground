@@ -23,7 +23,7 @@ services:
     <<: [*app, *resources]
     image: nursa/api
     container_name: nursa-api1
-    command: npm run start:server
+    command: node lib/index.js
     ports:
         - "5001:5000" #App port
 
@@ -31,7 +31,7 @@ services:
     <<: [*app, *resources]
     image: nursa/api
     container_name: nursa-api2
-    command: npm run start:server
+    command: node lib/index.js
     ports:
         - "5002:5000" #App port
 
@@ -39,7 +39,7 @@ services:
     <<: [*app, *resources]
     image: nursa/api
     container_name: nursa-api3
-    command: npm run start:server
+    command: node lib/index.js
     ports:
         - "5003:5000" #App port
 
@@ -47,7 +47,7 @@ services:
     <<: [*app, *resources]
     image: nursa/api
     container_name: nursa-api4
-    command: npm run start:server
+    command: node lib/index.js
     ports:
         - "5004:5000" #App port
 
@@ -55,7 +55,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api5
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5005:5000" #App port
 
@@ -63,7 +63,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api6
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5006:5000" #App port
 
@@ -71,7 +71,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api7
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5007:5000" #App port
 
@@ -79,7 +79,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api8
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5008:5000" #App port
 
@@ -87,7 +87,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api9
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5009:5000" #App port
 
@@ -95,7 +95,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api10
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5010:5000" #App port
 
@@ -103,7 +103,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api11
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5011:5000" #App port
 
@@ -111,7 +111,7 @@ services:
   #   <<: [*app, *resources]
   #   image: nursa/api
   #   container_name: nursa-api12
-  #   command: npm run start:server
+  #   command: node lib/index.js
   #   ports:
   #       - "5012:5000" #App port
 
