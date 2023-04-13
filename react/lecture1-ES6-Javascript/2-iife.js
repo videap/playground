@@ -24,7 +24,6 @@ function printMessage() {
 
     message = "This should not be printed"
   }
-
   const sayHello = printMessage()
 
 
